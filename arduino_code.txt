@@ -1,0 +1,81 @@
+#include <Servo.h>
+
+Servo danceServo;
+
+void setup() {
+  danceServo.attach(9);  // Connect servo to pin 9
+  randomSeed(analogRead(0)); // Seed for randomness
+}
+
+void loop() {
+  int pattern = random(1, 6);  // Choose pattern 1 to 5
+
+  switch (pattern) {
+    case 1:
+      slowSideSway();
+      break;
+    case 2:
+      quickShake();
+      break;
+    case 3:
+      pauseAndLook();
+      break;
+    case 4:
+      dramaticSwing();
+      break;
+    case 5:
+      reverseSway();
+      break;
+  }
+
+  delay(1000);  // Pause between patterns
+}
+
+void slowSideSway() {
+  for (int pos = 70; pos <= 110; pos++) {
+    danceServo.write(pos);
+    delay(20);
+  }
+  for (int pos = 110; pos >= 70; pos--) {
+    danceServo.write(pos);
+    delay(20);
+  }
+}
+
+void quickShake() {
+  for (int i = 0; i < 4; i++) {
+    danceServo.write(85);
+    delay(100);
+    danceServo.write(95);
+    delay(100);
+  }
+}
+
+void pauseAndLook() {
+  danceServo.write(60);  // Look left
+  delay(1500);
+  danceServo.write(120); // Look right
+  delay(1500);
+}
+
+void dramaticSwing() {
+  for (int pos = 40; pos <= 140; pos++) {
+    danceServo.write(pos);
+    delay(10);
+  }
+  for (int pos = 140; pos >= 40; pos--) {
+    danceServo.write(pos);
+    delay(10);
+  }
+}
+
+void reverseSway() {
+  for (int pos = 110; pos >= 70; pos--) {
+    danceServo.write(pos);
+    delay(20);
+  }
+  for (int pos = 70; pos <= 110; pos++) {
+    danceServo.write(pos);
+    delay(20);
+  }
+}
